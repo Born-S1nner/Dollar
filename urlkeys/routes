@@ -1,0 +1,38 @@
+#Key routes and functions
+import datetime
+from flask_restful import Resource
+from flask import request
+from db_model import User
+from flask_jwt_extended import create_access_token, create_refresh_token
+#, get_jwt_identity, jwt_required, jwt_refresh_token_required
+
+class home(Resource):
+    def get(self):
+        get = "<h1>Hello Dollar</h1>"
+        return get
+
+class loginUser(Resource):
+    def post(self):
+        body = request.get_json()
+        username = body.get('username')
+        password = body.get('password')
+        user = User.objects.get(username=username)
+        authorized = user.check_password(str(password))
+        if not authorized:
+            return {'Error': "Incorrect Email or Password"}, 401
+
+        access_expires = datetime.timedelta(hours=23)
+        refresh_expires = datetime.timedelta(days=3)
+
+        access_token = create_access_token(identity=username, expires_delta=access_expires)
+        refresh_token = create_refresh_token(identity=username, expires_delta=refresh_expires)
+        ret = {
+            "access_token": access_token,
+            "refresh_token": refresh_token
+        }
+        return ret, 200
+
+#Routes for Api
+def initialize_routes(api):
+    api.add_resource(home, '/')
+    api.add_resource(loginUser, '/uesr/login')
