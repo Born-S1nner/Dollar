@@ -9,7 +9,7 @@ def initialize_db (app):
 import mongoengine_goodjson as gj
 from flask_bcrypt import generate_password_hash, check_password_hash
 
-class User(gj.Document):
+class CoinMember(gj.Document):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
     password = db.StringField(required=True, unique=True, min_length=4)
