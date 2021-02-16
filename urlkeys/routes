@@ -6,12 +6,12 @@ from db_model import User
 from flask_jwt_extended import create_access_token, create_refresh_token
 #, get_jwt_identity, jwt_required, jwt_refresh_token_required
 
-class home(Resource):
+class Home(Resource):
     def get(self):
         get = "<h1>Hello Dollar</h1>"
         return get
 
-class loginUser(Resource):
+class LoginUser(Resource):
     def post(self):
         body = request.get_json()
         username = body.get('username')
@@ -32,7 +32,27 @@ class loginUser(Resource):
         }
         return ret, 200
 
+class NewUser(object):
+    def post(self):
+        body = request.get_json()
+        username = body.get("username")
+        if not username:
+            return {'Error': "UserName Not Included"}, 405
+        email = body.get("email")
+        if not email:
+            return {'Error': "Email Not Included"}, 406
+        password = body.get("password")
+        if not password:
+            return {'Error': "Password Not Included"}, 407
+        
+        user = User(username=username, email=email, password=password)
+        user.hash_password()
+        user.save()
+        id = user.id
+        return {'id': str(id)}, 200
+
 #Routes for Api
 def initialize_routes(api):
-    api.add_resource(home, '/')
-    api.add_resource(loginUser, '/uesr/login')
+    api.add_resource(Home, '/')
+    api.add_resource(LoginUser, '/user/login')
+    api.add_resource(NewUser, '/user/signup')
