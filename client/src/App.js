@@ -26,7 +26,7 @@ export default function App() {
                         value=''
                         placeholder="Username"
                         name="username"
-                        //onChange={handleUsernameChange}
+                        onChange={handleUsernameChange}
                     />
                 </div>
                 <div>
@@ -35,7 +35,7 @@ export default function App() {
                         value=''
                         placeholder="Password"
                         name="password"
-                        //onChange={handlePasswordChange}
+                        onChange={handlePasswordChange}
                     />
                 </div>
                 <button onClick={onSubmitClick} type="submit">Login</button>
