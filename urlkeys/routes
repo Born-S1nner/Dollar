@@ -8,8 +8,8 @@ from flask_jwt_extended import create_access_token, create_refresh_token
 
 class Home(Resource):
     def get(self):
-        get = "<h1>Hello Dollar</h1>"
-        return get
+        get = "Hello Dollar"
+        return {"get": get}
 
 class LoginUser(Resource):
     def post(self):
