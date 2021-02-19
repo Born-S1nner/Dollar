@@ -8,9 +8,13 @@ export default function App() {
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
     }
-
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
+    }
+
+    function IdentityCheck() {
+        const license = "Stranger"
+        return(<h4>Hello {license}!</h4>)
     }
 
     const onSubmitClick = (e) => {
@@ -28,38 +32,43 @@ export default function App() {
             body: JSON.stringify(detail)
         })
             .then(req => req.json())
+            .catch(err => err)
     }
     fetch('http://127.0.0.1:5000/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
+
     return (
         <div>
             <h1>{title}</h1>
-            <form action='#'>
-                <h2>Login</h2>
-                <div>
-                    <input 
-                        type="text"
-                        value={username}
-                        placeholder="Username"
-                        name="username"
-                        onChange={handleUsernameChange}
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        value={password}
-                        placeholder="Password"
-                        name="password"
-                        onChange={handlePasswordChange}
-                    />
-                </div>
-                <button onClick={onSubmitClick} type="submit">Login</button>
-            </form>
-            <form>
+            <div>
+                <form action='#'>
+                    <h3>Login</h3>
+                    <div>
+                        <input 
+                            type="text"
+                            value={username}
+                            placeholder="Username"
+                            name="username"
+                            onChange={handleUsernameChange}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={password}
+                            placeholder="Password"
+                            name="password"
+                            onChange={handlePasswordChange}
+                        />
+                    </div>
+                    <button onClick={onSubmitClick} type="submit">Login</button>
+                </form>
+                <form>
 
-            </form>
+                </form>
+            </div>
+            <IdentityCheck />
         </div>
     )
 }
