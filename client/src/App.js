@@ -13,8 +13,13 @@ export default function App() {
     }
 
     function IdentityCheck() {
-        const license = "Stranger"
-        return(<h4>Hello {license}!</h4>)
+        if (500) {
+            let license = 'Stanger'
+            return(<h4>Hello {license}!</h4>)
+        } else {
+            let license = username
+            return(<h4>Hello {license}!</h4>)
+        }
     }
 
     const onSubmitClick = (e) => {
