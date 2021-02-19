@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 export default function App() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [title, titleCard] = useState('')
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -14,16 +15,32 @@ export default function App() {
 
     const onSubmitClick = (e) => {
         e.preventDefault()
-        console.log("submit works")
+        let detail = {
+            'username': username,
+            'password': password
+        }
+        fetch('http://127.0.0.1:5000/user/login', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json' 
+            },
+            body: JSON.stringify(detail)
+        })
+            .then(req => req.json())
     }
+    fetch('http://127.0.0.1:5000/')
+        .then(res => res.json())
+        .then(data => titleCard(data.get))
     return (
         <div>
-            <h1>hello</h1>
+            <h1>{title}</h1>
             <form action='#'>
+                <h2>Login</h2>
                 <div>
                     <input 
                         type="text"
-                        value=''
+                        value={username}
                         placeholder="Username"
                         name="username"
                         onChange={handleUsernameChange}
@@ -32,13 +49,16 @@ export default function App() {
                 <div>
                     <input
                         type="text"
-                        value=''
+                        value={password}
                         placeholder="Password"
                         name="password"
                         onChange={handlePasswordChange}
                     />
                 </div>
                 <button onClick={onSubmitClick} type="submit">Login</button>
+            </form>
+            <form>
+
             </form>
         </div>
     )
