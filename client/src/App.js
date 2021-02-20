@@ -13,7 +13,7 @@ export default function App() {
     }
 
     function IdentityCheck() {
-        if (500) {
+        if (!onSubmitClick) {
             let license = 'Stanger'
             return(<h4>Hello {license}!</h4>)
         } else {
@@ -28,7 +28,7 @@ export default function App() {
             'username': username,
             'password': password
         }
-        fetch('http://127.0.0.1:5000/user/login', {
+        fetch('https://baree.herokuapp.com/user/login', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export default function App() {
             .then(req => req.json())
             .catch(err => err)
     }
-    fetch('http://127.0.0.1:5000/')
+    fetch('https://baree.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
 
