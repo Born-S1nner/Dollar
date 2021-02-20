@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {authFetch, useAuth} from './auth/authic'
 
 export default function App() {
     const [username, setUsername] = useState('')
@@ -11,16 +12,6 @@ export default function App() {
     }
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
-    }
-
-    function IdentityCheck() {
-        if (!onSubmitClick) {
-            let license = 'Stanger'
-            return(<h4>Hello {license}!</h4>)
-        } else {
-            let license = username
-            return(<h4>Hello {license}!</h4>)
-        }
     }
 
     const onSubmitClick = (e) => {
@@ -38,8 +29,14 @@ export default function App() {
             body: JSON.stringify(detail)
         })
             .then(req => req.json())
-            .then(data => setToken(data.access_token))
-            .catch(err => err)
+            .then(token => {
+                if (token.access_token) {
+                    login(token)
+                    console.log(token)
+                } else {
+                    console.log("Wrong USERNAME/PASSWORD")
+                }
+            })
     }
     fetch('https://baree.herokuapp.com/')
         .then(res => res.json())
@@ -76,7 +73,28 @@ export default function App() {
                 </form>
             </div>
             <IdentityCheck />
-            <h5>{token}</h5>
         </div>
     )
+    function IdentityCheck() {
+        const [message, setMessage] = useState('')
+
+        useEffect(() => {
+            authFetch('http://127.0.0.1:5000/user/protect')
+                .then(res => {
+                    if (res.status === 442) {
+                        setMessage("You need to LogIn")
+                        return null
+                    }
+                    return res.json()
+                })
+                .then(res => {
+                    if (res && res.message) {
+                        setMessage(res.message)
+                    }
+                })
+        }, [])
+        return(
+            <h5>{message}</h5>
+        )
+    }
 }
