@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/Dollar/static/js/main.d8764490.chunk.js",
+    "main.js.map": "/Dollar/static/js/main.d8764490.chunk.js.map",
+    "runtime-main.js": "/Dollar/static/js/runtime-main.a6560d45.js",
+    "runtime-main.js.map": "/Dollar/static/js/runtime-main.a6560d45.js.map",
+    "static/js/2.265894cb.chunk.js": "/Dollar/static/js/2.265894cb.chunk.js",
+    "static/js/2.265894cb.chunk.js.map": "/Dollar/static/js/2.265894cb.chunk.js.map",
+    "index.html": "/Dollar/index.html",
+    "static/js/2.265894cb.chunk.js.LICENSE.txt": "/Dollar/static/js/2.265894cb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a6560d45.js",
+    "static/js/2.265894cb.chunk.js",
+    "static/js/main.d8764490.chunk.js"
+  ]
+}
