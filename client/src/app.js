@@ -4,6 +4,7 @@ export default function App() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [title, titleCard] = useState('')
+    const [token, setToken] = useState('')
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -28,7 +29,7 @@ export default function App() {
             'username': username,
             'password': password
         }
-        fetch('https://baree.herokuapp.com/user/login', {
+        fetch('http://127.0.0.1:5000/user/login', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -37,6 +38,7 @@ export default function App() {
             body: JSON.stringify(detail)
         })
             .then(req => req.json())
+            .then(data => setToken(data.access_token))
             .catch(err => err)
     }
     fetch('https://baree.herokuapp.com/')
@@ -74,6 +76,7 @@ export default function App() {
                 </form>
             </div>
             <IdentityCheck />
+            <h5>{token}</h5>
         </div>
     )
 }
