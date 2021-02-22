@@ -20,7 +20,7 @@ export default function App() {
             'username': username,
             'password': password
         }
-        fetch('http://127.0.0.1:5000/user/login', {
+        fetch('https://baree.herokuapp.com/user/login', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export default function App() {
         const [message, setMessage] = useState('')
 
         useEffect(() => {
-            authFetch('http://127.0.0.1:5000/user/protect')
+            authFetch('https://baree.herokuapp.com/user/protect')
                 .then(res => {
                     if (res.status === 442) {
                         setMessage("You need to LogIn")
