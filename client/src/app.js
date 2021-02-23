@@ -20,7 +20,7 @@ export default function App() {
             'username': username,
             'password': password
         }
-        fetch('https://baree.herokuapp.com/user/login', {
+        fetch('https://dollardream.herokuapp.com/user/login', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default function App() {
                 }
             })
     }
-    fetch('https://baree.herokuapp.com/')
+    fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
 
@@ -79,7 +79,7 @@ export default function App() {
         const [message, setMessage] = useState('')
 
         useEffect(() => {
-            authFetch('https://baree.herokuapp.com/user/protect')
+            authFetch('https://dollardream.herokuapp.com/user/protect')
                 .then(res => {
                     if (res.status === 442) {
                         setMessage("You need to LogIn")
