@@ -3,13 +3,16 @@ import React, {useState} from 'react'
 export default function Signup() {
   const [username, buildUsername] = useState('')
   const [email, buildEmail] = useState('')
-  const 
+  const [password, buildPassword] = useState('')
 
   const handleUsername = (e) => {
     buildUsername(e.target.value)
   }
   const handleEmail = (e) => {
     buildEmail(e.target.value)
+  }
+  const handlePassword = (e) => {
+    buildPassword(e.target.value)
   }
 
   return (
@@ -32,6 +35,15 @@ export default function Signup() {
             name="email"
             onChange={handleEmail}
             placeholder="Email"
+          />
+        </div>
+        <div>
+          <input 
+            type="text"
+            value={password}
+            name="password"
+            onChange={handlePassword}
+            placeholder="Password"
           />
         </div>
       </form>
