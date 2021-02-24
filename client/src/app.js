@@ -1,78 +1,22 @@
-import React, { useState } from 'react'
-import {authFetch, useAuth} from './auth/authic'
-
+import React, { useState, useEffect } from 'react'
+import { authFetch, useAuth, logout } from './auth/authic'
+import Login from './account/login'
 export default function App() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
     const [title, titleCard] = useState('')
-    const [token, setToken] = useState('')
 
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value)
-    }
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
-    }
-
-    const onSubmitClick = (e) => {
-        e.preventDefault()
-        let detail = {
-            'username': username,
-            'password': password
-        }
-        fetch('https://dollardream.herokuapp.com/user/login', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json' 
-            },
-            body: JSON.stringify(detail)
-        })
-            .then(req => req.json())
-            .then(token => {
-                if (token.access_token) {
-                    login(token)
-                    console.log(token)
-                } else {
-                    console.log("Wrong USERNAME/PASSWORD")
-                }
-            })
-    }
     fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
-
+    
+        const [logged] = useAuth()
     return (
         <div>
             <h1>{title}</h1>
             <div>
-                <form action='#'>
-                    <h3>Login</h3>
-                    <div>
-                        <input 
-                            type="text"
-                            value={username}
-                            placeholder="Username"
-                            name="username"
-                            onChange={handleUsernameChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            value={password}
-                            placeholder="Password"
-                            name="password"
-                            onChange={handlePasswordChange}
-                        />
-                    </div>
-                    <button onClick={onSubmitClick} type="submit">Login</button>
-                </form>
-                <form>
-
-                </form>
+            {!logged? <Login />: <button onClick={()=> logout()}>LogOut</button>}
             </div>
             <IdentityCheck />
+            <p>World is Peace</p>
         </div>
     )
     function IdentityCheck() {
@@ -81,8 +25,8 @@ export default function App() {
         useEffect(() => {
             authFetch('https://dollardream.herokuapp.com/user/protect')
                 .then(res => {
-                    if (res.status === 442) {
-                        setMessage("You need to LogIn")
+                    if (res.status === 500) {
+                        setMessage("Welcome Stanger, please Log in")
                         return null
                     }
                     return res.json()
