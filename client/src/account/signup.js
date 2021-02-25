@@ -14,6 +14,10 @@ export default function Signup() {
   const handlePassword = (e) => {
     buildPassword(e.target.value)
   }
+  const onSubmitProfile = (e) => {
+    e.preventDeafault()
+    console.log("Sign up")
+  }
 
   return (
     <div>
@@ -46,6 +50,7 @@ export default function Signup() {
             placeholder="Password"
           />
         </div>
+        <button onClick={onSubmitProfile}>Sign-up</button>
       </form>
     </div>
   )
