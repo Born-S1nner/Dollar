@@ -17,7 +17,8 @@ export default function App() {
         <div>
             <h1>{title}</h1>
             <div>
-                {!logged? <ProfileBar />: <button onClick={()=> logout()}>LogOut</button>}
+                <Signup />
+                {!logged? <Login />: <button onClick={()=> logout()}>LogOut</button>}
             </div>
             <IdentityCheck />
             <p>World is Peace</p>
@@ -29,7 +30,7 @@ export default function App() {
         useEffect(() => {
             authFetch('http://127.0.0.1:5000/user/protect')
                 .then(res => {
-                    if (res.status === 500) {
+                    if (res.status === 422) {
                         setMessage("Welcome Stanger, please Log in")
                         return null
                     }
@@ -43,15 +44,6 @@ export default function App() {
         }, [])
         return(
             <h5>{message}</h5>
-        )
-    }
-    function ProfileBar() {
-        return(
-            <div className ="profile_bar">
-                <Signup />
-                <Login />
-            </div>
-            
         )
     }
 }
