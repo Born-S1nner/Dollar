@@ -1,7 +1,7 @@
-import React from 'react'
-import { useAuth, login, logout } from '../auth/authic'
+import React, { useState } from 'react'
+import { login } from '../auth/authic'
 
-export default function login() {
+export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const handleUsernameChange = (e) => {
@@ -17,7 +17,7 @@ export default function login() {
       'username': username,
       'password': password
     }
-    fetch('https://baree.herokuapp.com/user/login', {
+    fetch('http://127.0.0.1:5000/user/login', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -36,10 +36,9 @@ export default function login() {
       })
   }
 
-  const [logged] = useAuth()
   return (
     <div>
-      {!logged? <form action='#'>
+      <form action='#'>
         <h3>Login</h3>
         <div>
           <input 
@@ -61,7 +60,6 @@ export default function login() {
         </div>
         <button onClick={onSubmitClick} type="submit">Login</button>
       </form>
-      : <button onClick={()=> logout()}>LogOut</button>}
     </div>
   )
 }
