@@ -1,22 +1,37 @@
 import React, {useState} from 'react'
 
 export default function Signup() {
-  const [username, buildUsername] = useState('')
-  const [email, buildEmail] = useState('')
-  const [password, buildPassword] = useState('')
+
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleUsername = (e) => {
-    buildUsername(e.target.value)
+    setUsername(e.target.value)
   }
   const handleEmail = (e) => {
-    buildEmail(e.target.value)
+    setEmail(e.target.value)
   }
   const handlePassword = (e) => {
-    buildPassword(e.target.value)
+    setPassword(e.target.value)
   }
   const onSubmitProfile = (e) => {
     e.preventDeafault()
     console.log("Sign up")
+    let details = {
+      "username": username,
+      "email": email,
+      "password": password
+    }
+    fetch('http://127.0.0.1:5000/user/signup', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' 
+      },
+      body: JSON.stringify(details)
+    })
+      .then(req => req.json())
   }
 
   return (
