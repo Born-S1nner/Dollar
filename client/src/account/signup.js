@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
+//import Login from "./login"
 
 export default function Signup() {
+  //const preEnter = Login.onSubmitClick()
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -15,8 +17,9 @@ export default function Signup() {
   const handlePassword = (e) => {
     setPassword(e.target.value)
   }
+
   const onSubmitProfile = (e) => {
-    e.preventDeafault()
+    e.preventDefault()
     console.log("Sign up")
     let details = {
       "username": username,
@@ -32,6 +35,7 @@ export default function Signup() {
       body: JSON.stringify(details)
     })
       .then(req => req.json())
+      .catch(err => console.error(err))
   }
 
   return (
