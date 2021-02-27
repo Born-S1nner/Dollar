@@ -17,13 +17,22 @@ export default function App() {
         <div>
             <h1>{title}</h1>
             <div>
-                <Signup />
-                {!logged? <Login />: <button onClick={()=> logout()}>LogOut</button>}
+                {!logged? <NavBar />: <button onClick={()=> logout()}>LogOut</button>}
             </div>
             <IdentityCheck />
             <p>World is Peace</p>
         </div>
     )
+
+    function NavBar() {
+        return(
+            <div>
+                <Signup />
+                <Login />
+            </div>
+        )
+    }
+
     function IdentityCheck() {
         const [message, setMessage] = useState('')
 
