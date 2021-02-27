@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
-//import Login from "./login"
 
 export default function Signup() {
-  //const preEnter = Login.onSubmitClick()
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -36,6 +34,7 @@ export default function Signup() {
     })
       .then(req => req.json())
       .catch(err => console.error(err))
+    
   }
 
   return (
