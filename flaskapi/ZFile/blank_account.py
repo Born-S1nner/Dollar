@@ -1,6 +1,6 @@
 #Key routes and functions
 import datetime
-from db_model import CoinMember
+from flaskapi.db_model import CoinMember
 from flask_restful import Resource
 from flask import request
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
@@ -62,11 +62,3 @@ class protection(Resource):
     def get(self):
         current_user = get_jwt_identity()
         return {'message': f'Log in as {current_user}'}, 200
-
-#Routes for Api
-def init_routes(api):
-    api.add_resource(Home, '/')
-    api.add_resource(LoginUser, '/user/login')
-    api.add_resource(NewUser, '/user/signup')
-    api.add_resource(refresh, '/user/refresh')
-    api.add_resource(protection, '/user/protect')
