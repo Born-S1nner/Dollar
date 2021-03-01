@@ -12,8 +12,8 @@ Bcrypt(app)
 CORS(app)
 
 #main system
-from flaskapi.db_model import initialize_db
-from flaskapi.ZFile.routes import init_routes
+from db_model import initialize_db
+from ZFile.routes import init_routes
 
 URL = config('URL')
 KEY = config('KEY')
