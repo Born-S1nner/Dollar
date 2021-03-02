@@ -1,7 +1,7 @@
 #where the blog message gets postede
 from flask import request
 from flask_restful import Resource
-from flaskapi.db_model import BlogPoster, CoinMember
+from db_model import BlogPoster, CoinMember
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class BlogLine(Resource):
@@ -11,12 +11,12 @@ class BlogLine(Resource):
 
   @jwt_required
   def post(self):
-      _id = get_jwt_identity()
+      user_id = get_jwt_identity()
       body = request.get_json()
-      user = CoinMember.objects.get(identity=_id)
-      blogpost = BlogPoster(**body, added_by=user)
+      coin = CoinMember.objects.get(id=user_id)
+      blogpost = BlogPoster(**body, added_by=coin)
       blogpost.save()
-      user.update(push__blog=blogpost)
-      user.save()
+      coin.update(push__blog=blogpost)
+      coin.save()
       id = blogpost.id
-      return {"blog_id": str(id)}
+      return {"id": str(id)}, 200
