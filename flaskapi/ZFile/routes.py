@@ -1,6 +1,6 @@
 #Routes for Api
 from .blank_account import Home, LoginUser, NewUser, refresh, protection
-
+from .blogPost import BlogLine
 
 def init_routes(api):
     api.add_resource(Home, '/')
@@ -8,3 +8,5 @@ def init_routes(api):
     api.add_resource(NewUser, '/user/signup')
     api.add_resource(refresh, '/user/refresh')
     api.add_resource(protection, '/user/protect')
+
+    api.add_resource(BlogLine, '/blog/public')
