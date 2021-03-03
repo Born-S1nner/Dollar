@@ -17,7 +17,7 @@ class CoinMember(gj.Document):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
     password = db.StringField(required=True, unique=True, min_length=4)
-    blog = db.ListField(db.ReferenceField('BlogPoster', register_delete_rule=db.PULL))
+    blogs = db.ListField(db.ReferenceField('BlogPoster', register_delete_rule=db.PULL))
 
     def hash_password(self):
         self.password = generate_password_hash(self.password).decode('utf8')
