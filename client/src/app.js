@@ -1,9 +1,10 @@
 ///Either use http://127.0.0.1:5000/ or https://dollardream.herokuapp.com/ for Post
-
 import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
 import Login from './account/login'
 import Signup from './account/signup'
+import MainPage from './main/mainscreen'
+
 export default function App() {
     const [title, titleCard] = useState('')
 
@@ -20,7 +21,9 @@ export default function App() {
                 {!logged? <NavBar />: <button onClick={()=> logout()}>LogOut</button>}
             </div>
             <IdentityCheck />
-            <p>World is Peace</p>
+            <div>
+                <MainPage />
+            </div>
         </div>
     )
 
