@@ -1,17 +1,14 @@
-import React, {Component , useState} from 'react'
+import React, {useState} from 'react'
 
-class MainPage extends Component{
-  render() {
-    const [bloglines, blogChange] = useState('')
-    fetch("https://dollardream.herokuapp.com/blog/public")
-      .then(res => res.json())
-      .then(data => blogChange(data.blog))
-    return (
-      <div>
-        {bloglines}
-      </div>
-    )
-  }
+export default function MainPage(){
+  const [bloglines, blogChange] = useState('')
+  fetch("https://dollardream.herokuapp.com/blog/public")
+    .then(res => res.json())
+    .then(data => blogChange(data.blog))
+  return (
+    <div>
+      <h5>bloglines</h5>
+      {bloglines}
+    </div>
+  )
 }
-
-export default MainPage;
