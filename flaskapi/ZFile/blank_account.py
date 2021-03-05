@@ -1,6 +1,6 @@
 #Key routes and functions
 import datetime
-from Zmodels.db_model
+from Zmodels.db_model import CoinMember
 from flask_restful import Resource
 from flask import request
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
