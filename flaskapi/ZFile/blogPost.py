@@ -2,9 +2,9 @@
 from flask import request
 from flask_restful import Resource
 from Zmodels.db_model import BlogPoster, CoinMember
-from Zmodels.error_model import InternalServerError, SchemaValidationError
+from Zmodels.error_model import InternalServerError, SchemaValidationError, UpdatingError
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from mongoengine.errors import ValidationError, FieldDoesNotExist
+from mongoengine.errors import ValidationError, FieldDoesNotExist, DoesNotExist, InvalidQueryError
 
 class BlogLines(Resource):
   def get(self):
@@ -28,3 +28,18 @@ class BlogLines(Resource):
     except Exception as e:
       raise InternalServerError
   
+class BlogLine(Resource):
+  @jwt_required(optional=True)
+  def put(self, id):
+      try:
+        coin_id = get_jwt_identity()
+        blog = BlogPoster.objects.get(id=id, added_by=coin_id)
+        body = request.get_json()
+        BlogPoster.objects.get(id=id).update(**body)
+        return '', 200 
+      except InvalidQueryError:
+        raise SchemaValidationError
+      except DoesNotExist:
+        raise UpdatingError
+      except Exception:
+        raise InternalServerError
