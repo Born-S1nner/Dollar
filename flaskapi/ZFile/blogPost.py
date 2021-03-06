@@ -6,7 +6,7 @@ from Zmodels.error_model import InternalServerError, SchemaValidationError
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from mongoengine.errors import ValidationError, FieldDoesNotExist
 
-class BlogLine(Resource):
+class BlogLines(Resource):
   def get(self):
     bloglist = BlogPoster.objects().to_json()
     return {"blog": bloglist}
@@ -27,3 +27,4 @@ class BlogLine(Resource):
       raise SchemaValidationError
     except Exception as e:
       raise InternalServerError
+  
