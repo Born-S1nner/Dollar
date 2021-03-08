@@ -1,6 +1,7 @@
 ///Either use http://127.0.0.1:5000/ or https://dollardream.herokuapp.com/ for Post
 import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
+import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
 import MainPage from './main/mainscreen'
@@ -15,7 +16,7 @@ export default function App() {
     const [logged] = useAuth()
 
     return (
-        <div>
+        <div classname="App">
             <h1>{title}</h1>
             <div>
                 {!logged? <NavBar />: <button onClick={()=> logout()}>LogOut</button>}
