@@ -9,6 +9,24 @@ export default function MainPage(){
   
   const onBlogSubmitClick = (e) => {
     e.preventDefault()
+    let blogDetail = {"blogs": bloglines}
+    fetch("http://127.0.0.1:5000/blog/public", {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' 
+      },
+      body: JSON.stringify(blogDetail)
+    })
+    .then(req => req.json())
+    .then(token => {
+      if (token.access_token) {
+        login(token)
+        console.log(token)
+      } else {
+        console.log("Wrong USERNAME/PASSWORD")
+      }
+    })
   }
   const [inputLogged] = useAuth()
   
