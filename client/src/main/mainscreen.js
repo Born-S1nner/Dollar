@@ -28,30 +28,20 @@ export default function MainPage(){
       }
     })
   }
-  const [inputLogged] = useAuth()
 
-  const DisplayBlogPost = (bloglines) => {
-    if (!bloglines.length) {
-      return (
-        <div>
-          Not Working
-        </div>
-      )
-    }
-    return bloglines.map((blog, index) =>(
-      <div key={index}>
-        <h4>{blog.blog}</h4>
-      </div>
-    ))
-  }
+  const blogArr = bloglines.split(',');
+  console.log(blogArr)
+  const DisplayBlogPost = blogArr.map((blog, index) => <li key={index}>{blog}</li>);
+  console.log(DisplayBlogPost)  
   
+  const [inputLogged] = useAuth()
   return (
     <div>
       <h4>bloglines</h4>
       {!inputLogged? <h5>Please Log in to send a message...</h5>:<BlogPostInput />}
-      <div>
-        <DisplayBlogPost />
-      </div>
+      <ul>
+        {DisplayBlogPost}
+      </ul>
     </div>
   )
 
