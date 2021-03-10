@@ -14,19 +14,12 @@ export default function MainPage(){
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
         'Accept': 'application/json' 
       },
       body: JSON.stringify(blogDetail)
     })
     .then(req => req.json())
-    .then(token => {
-      if (token.access_token) {
-        login(token)
-        console.log(token)
-      } else {
-        console.log("Wrong USERNAME/PASSWORD")
-      }
-    })
   }
 
   const blogArr = bloglines.split(',');
