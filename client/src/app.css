@@ -1,4 +1,6 @@
 .App {
   color: white;
   background-color: black;
+  font-size: calc(10px + 2vmin);
+  min-height: 750px;
 }
