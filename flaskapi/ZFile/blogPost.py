@@ -43,7 +43,7 @@ class BlogLine(Resource):
         coin_id = get_jwt_identity()
         blog = BlogPoster.objects.get(id=ObjectId(id))
         body = request.get_json(force=True)
-        BlogPoster.objects.get(id=ObjectId(id)).update(**body)
+        blog.update(**body)
         return '', 200 
       except InvalidQueryError:
         raise SchemaValidationError
