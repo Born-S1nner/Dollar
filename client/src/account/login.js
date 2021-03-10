@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { login } from '../auth/authic'
 
-export default function Login() {
+export default function Login({setToken}) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const handleUsernameChange = (e) => {
@@ -30,6 +30,7 @@ export default function Login() {
         if (token.access_token) {
           login(token)
           console.log(token)
+          setToken(token.access_token)
         } else {
           console.log("Wrong USERNAME/PASSWORD")
         }
