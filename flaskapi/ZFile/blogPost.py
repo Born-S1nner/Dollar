@@ -3,7 +3,7 @@ from flask import request
 from flask_restful import Resource
 from bson.objectid import ObjectId
 from Zmodels.db_model import BlogPoster, CoinMember
-from Zmodels.error_model import InternalServerError, SchemaValidationError, UpdatingError
+from Zmodels.error_model import InternalServerError, SchemaValidationError, UpdatingError, DeletingError
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from mongoengine.errors import ValidationError, FieldDoesNotExist, DoesNotExist, InvalidQueryError
 
@@ -51,3 +51,12 @@ class BlogLine(Resource):
         raise UpdatingError
       except Exception:
         raise InternalServerError
+  
+  @jwt_required(optional=True)
+  def delete(self, id):
+    try:
+      blog = BlogPoster.objects.get(id=ObjectId(id))
+      blog.delete()
+      return '', 200
+    except DoesNotExist:
+      raise DeletingError
