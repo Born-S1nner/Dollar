@@ -3,7 +3,7 @@ import {useAuth} from '../auth/authic'
 
 export default function MainPage(){
   const [bloglines, blogChange] = useState('')
-  fetch("https://dollardream.herokuapp.com/blog/public")
+  fetch("http://127.0.0.1:5000/blog/public")
     .then(res => res.json())
     .then(data => blogChange(data.blog))
   
@@ -29,12 +29,29 @@ export default function MainPage(){
     })
   }
   const [inputLogged] = useAuth()
+
+  const DisplayBlogPost = (bloglines) => {
+    if (!bloglines.length) {
+      return (
+        <div>
+          Not Working
+        </div>
+      )
+    }
+    return bloglines.map((blog, index) =>(
+      <div key={index}>
+        <h4>{blog.blog}</h4>
+      </div>
+    ))
+  }
   
   return (
     <div>
       <h4>bloglines</h4>
       {!inputLogged? <h5>Please Log in to send a message...</h5>:<BlogPostInput />}
-      {bloglines}
+      <div>
+        <DisplayBlogPost />
+      </div>
     </div>
   )
 
