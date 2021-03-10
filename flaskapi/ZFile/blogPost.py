@@ -60,3 +60,5 @@ class BlogLine(Resource):
       return '', 200
     except DoesNotExist:
       raise DeletingError
+     except Exception:
+      raise InternalServerError
