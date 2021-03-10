@@ -1,6 +1,7 @@
 #where the blog message gets postede
 from flask import request
 from flask_restful import Resource
+from bson.objectid import ObjectId
 from Zmodels.db_model import BlogPoster, CoinMember
 from Zmodels.error_model import InternalServerError, SchemaValidationError, UpdatingError
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -29,13 +30,20 @@ class BlogLines(Resource):
       raise InternalServerError
   
 class BlogLine(Resource):
+  def get(self, id):
+    try:
+      blogline = BlogPoster.objects.get(id=ObjectId(id)).to_json()
+      return {'blogline': blogline}, 200
+    except Exception:
+      raise InternalServerError
+
   @jwt_required(optional=True)
   def put(self, id):
       try:
         coin_id = get_jwt_identity()
-        blog = BlogPoster.objects.get(id=id, added_by=coin_id)
-        body = request.get_json()
-        BlogPoster.objects.get(id=id).update(**body)
+        blog = BlogPoster.objects.get(id=ObjectId(id))
+        body = request.get_json(force=True)
+        BlogPoster.objects.get(id=ObjectId(id)).update(**body)
         return '', 200 
       except InvalidQueryError:
         raise SchemaValidationError
