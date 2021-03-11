@@ -1,20 +1,27 @@
 import React, {useState} from 'react'
 import {useAuth} from '../auth/authic'
 
-export default function MainPage(){
-  const [bloglines, blogChange] = useState('')
+export default function MainPage({token}){
+  
+  const [bloglines, blogsChange] = useState('')
+  const [blog, setBlog] = useState('')
+
+  const handleBlogChange = (e) => {
+    setBlog(e.target.value)
+  }
+  
   fetch("http://127.0.0.1:5000/blog/public")
     .then(res => res.json())
-    .then(data => blogChange(data.blog))
+    .then(data => blogsChange(data.blog))
   
   const onBlogSubmitClick = (e) => {
     e.preventDefault()
-    let blogDetail = {"blogs": bloglines}
+    let blogDetail = {"blog": blog}
     fetch("http://127.0.0.1:5000/blog/public", {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`,
+        'Authorization': `Bearer ${token}`,
         'Accept': 'application/json' 
       },
       body: JSON.stringify(blogDetail)
@@ -41,7 +48,16 @@ export default function MainPage(){
   function BlogPostInput() {
     return(
       <div>
-        <input/><button onClick={onBlogSubmitClick}>Enter</button>
+          <form>
+            <input
+              type="text"
+              value={blog}
+              placeholder="Enter what's in your mind..."
+              name="blog"
+              onChange={handleBlogChange}
+            />
+            <button onClick={onBlogSubmitClick} type="submit">Enter</button>
+          </form>
       </div>
     )
   }
