@@ -18,23 +18,17 @@ export default function App() {
 
     return (
         <div className="App">
-            <h1>{title}</h1>
-            <div>
-                {!logged? <NavBar />: <button onClick={()=> logout()}>LogOut</button>}
+            <h1 className="titleStyle">{title}</h1>
+            <ul className="NavBar">
+                <li className="NavItem"><Signup /></li>
+                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button onClick={()=> logout()}>LogOut</button>}</li>
+                <li className="NavItem"><IdentityCheck /></li>
+            </ul>
+            <div className="blogMain">
+                <MainPage token={token}/>
             </div>
-            <IdentityCheck />
-            <MainPage token={token}/>
         </div>
     )
-
-    function NavBar() {
-        return(
-            <div>
-                <Signup />
-                <Login setToken={setToken}/>
-            </div>
-        )
-    }
 
     function IdentityCheck() {
         const [message, setMessage] = useState('')
