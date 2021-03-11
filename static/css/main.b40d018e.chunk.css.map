@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/app.css"],"names":[],"mappings":"AAAA,KACE,UAAY,CACZ,qBAAuB,CACvB,4BAA6B,CAC7B,gBACF","file":"main.b40d018e.chunk.css","sourcesContent":[".App {\r\n  color: white;\r\n  background-color: black;\r\n  font-size: calc(10px + 2vmin);\r\n  min-height: 750px;\r\n}\r\n"]}
