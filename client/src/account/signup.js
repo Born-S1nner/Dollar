@@ -40,7 +40,7 @@ export default function Signup() {
   return (
     <div>
       <h3>Signup</h3>
-      <form action='#'>
+      <form action='#' className="NavItemDropContent">
         <div>
           <input 
             type="text"
