@@ -22,9 +22,8 @@ export default function App() {
             <div>
                 {!logged? <NavBar />: <button onClick={()=> logout()}>LogOut</button>}
             </div>
-            {token}
             <IdentityCheck />
-            <MainPage />
+            <MainPage token={token}/>
         </div>
     )
 
