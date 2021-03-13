@@ -32,3 +32,35 @@ class BlogLines(Resource):
       raise InternalServerError
   
 class BlogLine(Resource):
+  def get(self, id):
+    try:
+      blogline = BlogPoster.objects.get(id=ObjectId(id)).to_json()
+      return {'blogline': blogline}, 200
+    except Exception:
+      raise InternalServerError
+
+  @jwt_required(optional=True)
+  def put(self, id):
+      try:
+        coin_id = get_jwt_identity()
+        blog = BlogPoster.objects.get(id=ObjectId(id))
+        body = request.get_json(force=True)
+        blog.update(**body)
+        return '', 200 
+      except InvalidQueryError:
+        raise SchemaValidationError
+      except DoesNotExist:
+        raise UpdatingError
+      except Exception:
+        raise InternalServerError
+  
+  @jwt_required(optional=True)
+  def delete(self, id):
+    try:
+      blog = BlogPoster.objects.get(id=ObjectId(id))
+      blog.delete()
+      return '', 200
+    except DoesNotExist:
+      raise DeletingError
+    except Exception:
+        raise InternalServerError
