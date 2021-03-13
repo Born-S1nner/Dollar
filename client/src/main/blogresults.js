@@ -3,8 +3,8 @@ import React from 'react'
 export default function Mapblogs({bloglines}) {
   const blogArr = bloglines.split(',');
   return (
-    blogArr.map((blog) => 
-      <li key={blog.id}>
+    blogArr.map((blog, index) => 
+      <li key={index}>
         {blog}
       </li>)
     )
