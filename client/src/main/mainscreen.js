@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useAuth} from '../auth/authic'
+import Mapblogs from './blogresults'
 
 export default function MainPage({token}){
   
@@ -23,17 +24,13 @@ export default function MainPage({token}){
       body: JSON.stringify(blogDetail)
     })
     .then(req => req.json())
+    Mapblogs()
   }
 
   fetch("http://127.0.0.1:5000/blog/public")
     .then(res => res.json())
     .then(data => blogsChange(data.blog))
-  
-  const blogArr = bloglines.split(',');
-  console.log(blogArr)
-  const DisplayBlogPost = blogArr.map((blog, index) => <li key={index}>{blog}</li>);
-  console.log(DisplayBlogPost)  
-  
+
   const [inputLogged] = useAuth()
   return (
     <div>
@@ -53,7 +50,7 @@ export default function MainPage({token}){
           <button onClick={onBlogSubmitClick} type="submit">Enter</button>
         </form>}
       <ul>
-        {DisplayBlogPost}
+        <Mapblogs bloglines={bloglines}/>
       </ul>
     </div>
   )
