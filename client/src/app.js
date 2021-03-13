@@ -21,7 +21,7 @@ export default function App() {
             <h1 className="titleStyle">{title}</h1>
             <ul className="NavBar">
                 <li className="NavItem"><Signup /></li>
-                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button onClick={()=> logout()}>LogOut</button>}</li>
+                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}>LogOut</button>}</li>
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
             <div className="blogMain">
