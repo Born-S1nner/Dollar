@@ -1,4 +1,5 @@
 #where the blog message gets postede
+import json
 from flask import request
 from flask_restful import Resource
 from bson.objectid import ObjectId
@@ -10,7 +11,8 @@ from mongoengine.errors import ValidationError, FieldDoesNotExist, DoesNotExist,
 class BlogLines(Resource):
   def get(self):
     bloglist = BlogPoster.objects().to_json()
-    return {"blog": bloglist}
+    jsonStr = json.loads(bloglist)
+    return jsonStr
 
   @jwt_required(optional=True)
   def post(self):
@@ -30,35 +32,3 @@ class BlogLines(Resource):
       raise InternalServerError
   
 class BlogLine(Resource):
-  def get(self, id):
-    try:
-      blogline = BlogPoster.objects.get(id=ObjectId(id)).to_json()
-      return {'blogline': blogline}, 200
-    except Exception:
-      raise InternalServerError
-
-  @jwt_required(optional=True)
-  def put(self, id):
-      try:
-        coin_id = get_jwt_identity()
-        blog = BlogPoster.objects.get(id=ObjectId(id))
-        body = request.get_json(force=True)
-        blog.update(**body)
-        return '', 200 
-      except InvalidQueryError:
-        raise SchemaValidationError
-      except DoesNotExist:
-        raise UpdatingError
-      except Exception:
-        raise InternalServerError
-  
-  @jwt_required(optional=True)
-  def delete(self, id):
-    try:
-      blog = BlogPoster.objects.get(id=ObjectId(id))
-      blog.delete()
-      return '', 200
-    except DoesNotExist:
-      raise DeletingError
-     except Exception:
-      raise InternalServerError
