@@ -24,12 +24,12 @@ export default function MainPage({token}){
       body: JSON.stringify(blogDetail)
     })
     .then(req => req.json())
-    Mapblogs()
   }
 
   fetch("http://127.0.0.1:5000/blog/public")
     .then(res => res.json())
     .then(data => blogsChange(data.blog))
+    .catch(err=> console.error(err))
 
   const [inputLogged] = useAuth()
   return (
