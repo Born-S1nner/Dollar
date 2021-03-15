@@ -1,8 +1,9 @@
 #where the blog message gets postede
 import json
+from bson import json_util, ObjectId
 from flask import request
 from flask_restful import Resource
-from bson.objectid import ObjectId
+from Zmodels.blog_model import blog_col
 from Zmodels.db_model import BlogPoster, CoinMember
 from Zmodels.error_model import InternalServerError, SchemaValidationError, UpdatingError, DeletingError
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -10,10 +11,12 @@ from mongoengine.errors import ValidationError, FieldDoesNotExist, DoesNotExist,
 
 class BlogLines(Resource):
   def get(self):
-    bloglist = BlogPoster.objects().to_json()
-    jsonStr = json.loads(bloglist)
-    return jsonStr
-
+    blog_json = []
+    if blog_col.find({}):
+      for blog in blog_col.find({}).sort("blog"):
+        blog_json.append({"blog": blog['blog'], "id": str(blog['_id']), "added_by": blog['added_by']})
+    jsonStr = json.loads(json_util.dumps(blog_json))
+    return {"blog": jsonStr}
   @jwt_required(optional=True)
   def post(self):
     try:
