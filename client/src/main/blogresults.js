@@ -28,7 +28,7 @@ class Mapblogs extends Component {
       this.state.blogs.map(row => 
         <div key={row.id}>
           {row.blog}
-          {row.added_by.$oid}
+          {row.added_by}
         </div>  
       )
     )
