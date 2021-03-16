@@ -4,7 +4,8 @@ import { authFetch, useAuth, logout } from './auth/authic'
 import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
-import MainPage from './main/mainscreen'
+import Inputblogs from './main/bloginput'
+import Mapblogs from './main/blogresults'
 
 export default function App() {
     const [title, titleCard] = useState('')
@@ -25,7 +26,8 @@ export default function App() {
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
             <div className="blogMain">
-                <MainPage token={token}/>
+                <Inputblogs token={token}/>
+                <Mapblogs />
             </div>
         </div>
     )
