@@ -15,15 +15,15 @@ class BlogLines(Resource):
     if blog_col.find({}):
       for blog in blog_col.find({}).sort("blog"):
         blog_json.append({"blog": blog['blog'], "id": str(blog['_id']), "added_by": blog['added_by']})
-    jsonStr = json.loads(json_util.dumps(blog_json))
-    return {"blog": jsonStr}
+    return json.loads(json_util.dumps(blog_json))
+
   @jwt_required(optional=True)
   def post(self):
     try:
       coin_id = get_jwt_identity()
       body = request.get_json()
       coin = CoinMember.objects.get(username=coin_id)
-      blog = BlogPoster(**body, added_by=coin)
+      blog = BlogPoster(**body, added_by=coin_id)
       blog.save()
       coin.update(push__blogs=blog)
       coin.save()
