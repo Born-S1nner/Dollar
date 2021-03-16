@@ -3,8 +3,7 @@ import {useAuth} from '../auth/authic'
 import Mapblogs from './blogresults'
 
 export default function MainPage({token}){
-  
-  const [bloglines, blogsChange] = useState('')
+
   const [blogMessage, setBlog] = useState('')
 
   const handleBlogChange = (e) => {
@@ -26,11 +25,6 @@ export default function MainPage({token}){
     .then(req => req.json())
   }
 
-  fetch("http://127.0.0.1:5000/blog/public")
-    .then(res => res.json())
-    .then(data => blogsChange(data.blog))
-    .catch(err=> console.error(err))
-
   const [inputLogged] = useAuth()
   return (
     <div>
@@ -50,7 +44,7 @@ export default function MainPage({token}){
           <button onClick={onBlogSubmitClick} type="submit">Enter</button>
         </form>}
       <ul>
-        <Mapblogs bloglines={bloglines}/>
+        <Mapblogs/>
       </ul>
     </div>
   )
