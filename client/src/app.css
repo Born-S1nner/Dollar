@@ -61,3 +61,6 @@ body {
 .NavItem:hover .NavItemDropContent{
   display: block;
 }
+.blogRow {
+  border: 2px solid white;
+}
