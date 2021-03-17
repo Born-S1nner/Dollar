@@ -26,12 +26,12 @@ class BlogMaps extends Component {
   displayBlogs = (blogs) => {
     return(
       blogs.map(row => 
-        <div key={row.id} className={blogRow}>
-          <h5>{row.added_by}</h5>
-          <p>{row.blog}</p>
-          <button>Edit</button>
-          <button>Remove</button>
-        </div>    
+        <div key={row.id} className="blogRow">
+          <h5 className='blog_head'>{row.added_by}</h5>
+          <p className='blog_blog'>{row.blog}</p>
+          <button className="blog_button">Edit</button>
+          <button className="blog_button">Remove</button>
+        </div>
       )
     )
   }
