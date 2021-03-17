@@ -29,7 +29,9 @@ class BlogMaps extends Component {
         <div key={row.id} className={blogRow}>
           <h5>{row.added_by}</h5>
           <p>{row.blog}</p>
-        </div>  
+          <button>Edit</button>
+          <button>Remove</button>
+        </div>    
       )
     )
   }
