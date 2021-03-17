@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class Mapblogs extends Component {
+class BlogMaps extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,16 +23,24 @@ class Mapblogs extends Component {
     this.getBlogs();
   }
 
-  render() {
+  displayBlogs = (blogs) => {
     return(
-      this.state.blogs.map(row => 
-        <div key={row.id}>
-          {row.blog}
-          {row.added_by}
+      blogs.map(row => 
+        <div key={row.id} className={blogRow}>
+          <h5>{row.added_by}</h5>
+          <p>{row.blog}</p>
         </div>  
       )
     )
   }
+
+  render() {
+    return(
+      <div>
+        {this.state.loading? <h5>Loading</h5> : this.displayBlogs(this.state.blogs)}
+      </div>
+    )
+  }
 }
 
-export default Mapblogs;
+export default BlogMaps;
