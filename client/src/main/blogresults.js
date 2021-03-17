@@ -6,7 +6,8 @@ class BlogMaps extends Component {
     this.state = {
       blogs: [],
       loading: true
-    };
+    }
+    this.UpdateBlogRow = this.UpdateBlogRow.bind(this)
   }
   getBlogs() {
     fetch("http://127.0.0.1:5000/blog/public")
@@ -17,6 +18,9 @@ class BlogMaps extends Component {
           loading: false
         })
       })
+  }
+  UpdateBlogRow(e) {
+    console.log(e.currentTarget.value)
   }
   
   componentDidMount() {
@@ -29,9 +33,9 @@ class BlogMaps extends Component {
         <div key={row.id} className="blogRow">
           <h5 className='blog_head'>{row.added_by}</h5>
           <p className='blog_blog'>{row.blog}</p>
-          <button className="blog_button">Edit</button>
+          <button value={row.id} onClick={this.UpdateBlogRow} className="blog_button">Edit</button>
           <button className="blog_button">Remove</button>
-        </div>
+        </div>  
       )
     )
   }
