@@ -1,11 +1,13 @@
 ///Either use http://127.0.0.1:5000/ or https://dollardream.herokuapp.com/ for Post
 import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
 import Inputblogs from './main/bloginput'
-import Mapblogs from './main/blogresults'
+import BlogMaps from './main/blogresults'
+import SingleBlog from './main/SingleBlogInfo'
 
 export default function App() {
     const [title, titleCard] = useState('')
@@ -18,19 +20,30 @@ export default function App() {
     const [logged] = useAuth()
 
     return (
+        <Router>
         <div className="App">
             <h1 className="titleStyle">{title}</h1>
             <ul className="NavBar">
                 <li className="NavItem"><Signup /></li>
-                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}>LogOut</button>}</li>
+                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}><Link to='/'>LogOut</Link></button>}</li>
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
             <div className="blogMain">
-                <Inputblogs token={token}/>
-                <Mapblogs />
+                <Route path="/home" component={BlogDrop} />
+                <Route path='/Blog' component={SingleBlog} />
             </div>
         </div>
+        </Router>
     )
+
+    function BlogDrop() {
+        return (
+            <div>
+                <Inputblogs token={token}/>
+                <BlogMaps />
+            </div>
+        )
+    }
 
     function IdentityCheck() {
         const [message, setMessage] = useState('')
