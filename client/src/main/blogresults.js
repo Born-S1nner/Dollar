@@ -20,13 +20,9 @@ class BlogMaps extends Component {
         })
       })
   }
-  UpdateBlogRow(e) {
+  UpdateBlogRow(e, {setId}) {
     console.log(e.currentTarget.value)
-    if (!1) {
-      console.log("NO Token available")
-    } else {
-      console.log("Token available")
-    }
+    setId(e.currentTarget.value)
   }
   
   componentDidMount() {
@@ -37,11 +33,9 @@ class BlogMaps extends Component {
     return(
       blogs.map(row => 
         <Link to='/Blog'>
-        <div key={row.id} className="blogRow" >
+        <div key={row.id} className="blogRow" value={row.id} onClick={this.UpdateBlogRow}>
           <h5 className='blog_head'>{row.added_by}</h5>
           <p className='blog_blog'>{row.blog}</p>
-          <button value={row.id} onClick={this.UpdateBlogRow} className="blog_button">Edit</button>
-          <button className="blog_button">Remove</button>
         </div>  
         </Link>
       )
