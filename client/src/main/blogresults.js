@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 class BlogMaps extends Component {
   constructor(props) {
@@ -21,6 +22,11 @@ class BlogMaps extends Component {
   }
   UpdateBlogRow(e) {
     console.log(e.currentTarget.value)
+    if (!1) {
+      console.log("NO Token available")
+    } else {
+      console.log("Token available")
+    }
   }
   
   componentDidMount() {
@@ -30,12 +36,14 @@ class BlogMaps extends Component {
   displayBlogs = (blogs) => {
     return(
       blogs.map(row => 
-        <div key={row.id} className="blogRow">
+        <Link to='/Blog'>
+        <div key={row.id} className="blogRow" >
           <h5 className='blog_head'>{row.added_by}</h5>
           <p className='blog_blog'>{row.blog}</p>
           <button value={row.id} onClick={this.UpdateBlogRow} className="blog_button">Edit</button>
           <button className="blog_button">Remove</button>
         </div>  
+        </Link>
       )
     )
   }
