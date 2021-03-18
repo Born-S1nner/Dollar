@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 import { login } from '../auth/authic'
 
 export default function Login({setToken}) {
@@ -59,7 +60,7 @@ export default function Login({setToken}) {
             onChange={handlePasswordChange}
           />
         </div>
-        <button onClick={onSubmitClick} type="submit">Login</button>
+        <button onClick={onSubmitClick} type="submit"><Link to='/home'>Login</Link></button>
       </form>
     </div>
   )
