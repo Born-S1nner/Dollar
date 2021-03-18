@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Dollar/static/css/main.f886ada6.chunk.css",
-    "main.js": "/Dollar/static/js/main.834bd455.chunk.js",
-    "main.js.map": "/Dollar/static/js/main.834bd455.chunk.js.map",
+    "main.js": "/Dollar/static/js/main.2e573b10.chunk.js",
+    "main.js.map": "/Dollar/static/js/main.2e573b10.chunk.js.map",
     "runtime-main.js": "/Dollar/static/js/runtime-main.a6560d45.js",
     "runtime-main.js.map": "/Dollar/static/js/runtime-main.a6560d45.js.map",
-    "static/js/2.83a040bf.chunk.js": "/Dollar/static/js/2.83a040bf.chunk.js",
-    "static/js/2.83a040bf.chunk.js.map": "/Dollar/static/js/2.83a040bf.chunk.js.map",
+    "static/js/2.49754a1d.chunk.js": "/Dollar/static/js/2.49754a1d.chunk.js",
+    "static/js/2.49754a1d.chunk.js.map": "/Dollar/static/js/2.49754a1d.chunk.js.map",
     "index.html": "/Dollar/index.html",
     "static/css/main.f886ada6.chunk.css.map": "/Dollar/static/css/main.f886ada6.chunk.css.map",
-    "static/js/2.83a040bf.chunk.js.LICENSE.txt": "/Dollar/static/js/2.83a040bf.chunk.js.LICENSE.txt"
+    "static/js/2.49754a1d.chunk.js.LICENSE.txt": "/Dollar/static/js/2.49754a1d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a6560d45.js",
-    "static/js/2.83a040bf.chunk.js",
+    "static/js/2.49754a1d.chunk.js",
     "static/css/main.f886ada6.chunk.css",
-    "static/js/main.834bd455.chunk.js"
+    "static/js/main.2e573b10.chunk.js"
   ]
 }
