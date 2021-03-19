@@ -36,7 +36,7 @@ class BlogMaps extends Component {
             <h5 className='blog_head'>{row.added_by}</h5>
             <p className='blog_blog'>{row.blog}</p>
           <button className='blog_button' value={row.id} onClick={this.UpdateBlogRow}>
-            <Link to='/Blog'>+</Link>
+            <Link to='/Blog'>...</Link>
           </button>
         </div>  
       )
