@@ -20,9 +20,9 @@ class BlogMaps extends Component {
         })
       })
   }
-  UpdateBlogRow(e, {setId}) {
+  UpdateBlogRow(e) {
     console.log(e.currentTarget.value)
-    setId(e.currentTarget.value)
+    //setId(e.currentTarget.value)
   }
   
   componentDidMount() {
@@ -32,12 +32,13 @@ class BlogMaps extends Component {
   displayBlogs = (blogs) => {
     return(
       blogs.map(row => 
-        <Link to='/Blog'>
-        <div key={row.id} className="blogRow" value={row.id} onClick={this.UpdateBlogRow}>
-          <h5 className='blog_head'>{row.added_by}</h5>
-          <p className='blog_blog'>{row.blog}</p>
+        <div key={row.id} className="blogRow">
+            <h5 className='blog_head'>{row.added_by}</h5>
+            <p className='blog_blog'>{row.blog}</p>
+          <button className='blog_button' value={row.id} onClick={this.UpdateBlogRow}>
+            <Link to='/Blog'>+</Link>
+          </button>
         </div>  
-        </Link>
       )
     )
   }
