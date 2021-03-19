@@ -37,8 +37,10 @@ class BlogLines(Resource):
 class BlogLine(Resource):
   def get(self, id):
     try:
-      blogline = BlogPoster.objects.get(id=ObjectId(id)).to_json()
-      return {'blogline': blogline}, 200
+      blogline = []
+      if blog_col.find({}):
+        blogline.append({"blog": ['blog'], "id": ['_id'], "added_by": ['added_by']})
+      return json.loads(json_util.dumps(blogline))
     except Exception:
       raise InternalServerError
 
