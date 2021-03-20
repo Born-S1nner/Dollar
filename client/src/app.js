@@ -12,6 +12,7 @@ import SingleBlog from './main/SingleBlogInfo'
 export default function App() {
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
+    const [Id, setId] = useState('')
 
     fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
@@ -40,7 +41,7 @@ export default function App() {
         return (
             <div>
                 <Inputblogs token={token}/>
-                <BlogMaps />
+                <BlogMaps setId={setId}/>
             </div>
         )
     }
