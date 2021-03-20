@@ -41,7 +41,7 @@ export default function App() {
         return (
             <div>
                 <Inputblogs token={token}/>
-                <BlogMaps setId={setId}/>
+                <BlogMaps setId={BlogMaps.setId}/>
             </div>
         )
     }
