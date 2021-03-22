@@ -5,21 +5,19 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
-import Inputblogs from './main/bloginput'
-import BlogMaps from './main/blogresults'
-import SingleBlog from './main/SingleBlogInfo'
+import Inputblogs from './main/blog/bloginput'
+import Main from './main/main'
 
 export default function App() {
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
-    const [Id, setId] = useState('')
+    const [Id, setId] = useState()
 
     fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
 
     const [logged] = useAuth()
-
     return (
         <Router>
         <div className="App">
@@ -30,8 +28,8 @@ export default function App() {
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
             <div className="blogMain">
+                <p>{Id}</p>
                 <Route path="/home" component={BlogDrop} />
-                <Route path='/Blog' component={SingleBlog} />
             </div>
         </div>
         </Router>
@@ -41,7 +39,7 @@ export default function App() {
         return (
             <div>
                 <Inputblogs token={token}/>
-                <BlogMaps setId={BlogMaps.setId}/>
+                <Main />
             </div>
         )
     }
