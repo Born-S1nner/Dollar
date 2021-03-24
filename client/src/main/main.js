@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import SingleBlog from './blog/SingleBlogInfo'
 export default class Main extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class Main extends Component {
   }
   
   displayBlogs = (blogs) => {
-//<Link to='/blog'></Link>
+//<Link to='/blog'>...</Link>
     return(
       blogs.map(row => 
         <div key={row.id} className="blogRow">
@@ -52,12 +52,19 @@ export default class Main extends Component {
             value={row.id}
             onClick={this.setId}
           >
-            ...
+            <Link to='/blog'>...</Link>
           </button>
         </div>
       )
     )
   }
+
+  SingleView() {
+    return(
+      <SingleBlog {...this.state}/>
+    )
+  }
+
   componentDidMount() {
     this.getBlogs();
     this.getBlogLine();
@@ -67,10 +74,14 @@ export default class Main extends Component {
 //<Route path="/blog" component={<SingleBlog {...this.state} />} />
     return (
       <Router>
+        <Route path="/home">
         <div>
           {this.load? this.state.loading : this.displayBlogs(this.state.blogs)}
         </div>
-        <SingleBlog {...this.state} />
+        </Route>
+        <Route path="/blog">
+          {this.SingleView()}
+        </Route>
       </Router>
     )
   }
