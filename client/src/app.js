@@ -1,7 +1,7 @@
 ///Either use http://127.0.0.1:5000/ or https://dollardream.herokuapp.com/ for Post
 import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
-import {Link} from 'react-router-dom'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
 import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
@@ -9,6 +9,7 @@ import Inputblogs from './main/blog/bloginput'
 import Main from './main/main'
 
 export default function App() {
+    const [message, setMessage] = useState('')
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
 
@@ -18,8 +19,29 @@ export default function App() {
 
     const [logged] = useAuth()
 
+    function IdentityCheck() {
+        useEffect(() => {
+            authFetch('http://127.0.0.1:5000/user/protect')
+                .then(res => {
+                    if (res.status === 422) {
+                        setMessage("Welcome Stanger, please Log in")
+                        return null
+                    }
+                    return res.json()
+                })
+                .then(res => {
+                    if (res && res.message) {
+                        setMessage(res.message)
+                    }
+                })
+        }, [])
+        return(
+            <h5>Log in as {message}</h5>
+        )
+    }
 
     return (
+        <Router>
         <div className="App">
             <h1 className="titleStyle">{title}</h1>
             <ul className="NavBar">
@@ -39,27 +61,6 @@ export default function App() {
                 <Main />
             </div>
         </div>
+        </Router>
     )
-
-    function IdentityCheck() {
-        const [message, setMessage] = useState('')
-        useEffect(() => {
-            authFetch('http://127.0.0.1:5000/user/protect')
-                .then(res => {
-                    if (res.status === 422) {
-                        setMessage("Welcome Stanger, please Log in")
-                        return null
-                    }
-                    return res.json()
-                })
-                .then(res => {
-                    if (res && res.message) {
-                        setMessage(res.message)
-                    }
-                })
-        }, [])
-        return(
-            <h5>{message}</h5>
-        )
-    }
 }
