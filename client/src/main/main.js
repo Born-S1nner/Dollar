@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import SingleBlog from './blog/SingleBlogInfo'
 export default class Main extends Component {
   constructor(props) {
@@ -7,6 +7,7 @@ export default class Main extends Component {
     this.state = {
       identity: '',
       blogs: [],
+      blogline: [],
       loading: true
     }
     this.setId = this.setId.bind(this)
@@ -14,6 +15,19 @@ export default class Main extends Component {
   setId(e) {
     let idme = e.target.value
     this.setState({identity: idme})
+    this.getBlogLine()
+  }
+  getBlogLine() {
+    let idOutlet = this.state.identity
+    console.log(idOutlet)
+    fetch("http://127.0.0.1:5000/blog/private/"+idOutlet)
+      .then(res => res.json())
+      .then(json =>{ 
+        this.setState({
+          blogline: json
+        })
+      })
+      .catch(err=> console.log(err))
   }
   getBlogs() {
     fetch("http://127.0.0.1:5000/blog/public")
@@ -46,17 +60,17 @@ export default class Main extends Component {
   }
   componentDidMount() {
     this.getBlogs();
+    this.getBlogLine();
   }
 
   render() {
+//<Route path="/blog" component={<SingleBlog {...this.state} />} />
     return (
       <Router>
         <div>
           {this.load? this.state.loading : this.displayBlogs(this.state.blogs)}
         </div>
-        <div>
-          <Route path="/blog" component={<SingleBlog {...this.state} />} />
-        </div>
+        <SingleBlog {...this.state} />
       </Router>
     )
   }
