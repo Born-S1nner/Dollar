@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import SingleBlog from './blog/SingleBlogInfo'
 export default class Main extends Component {
   constructor(props) {
@@ -14,9 +14,6 @@ export default class Main extends Component {
   setId(e) {
     let idme = e.target.value
     this.setState({identity: idme})
-    return (
-      <Route path="/blog" component={<SingleBlog {...this.state} />} />
-    )
   }
   getBlogs() {
     fetch("http://127.0.0.1:5000/blog/public")
@@ -41,9 +38,7 @@ export default class Main extends Component {
             value={row.id}
             onClick={this.setId}
           >
-            <Link to='/blog'>
-              ...
-            </Link>
+            ...
           </button>
         </div>
       )
@@ -55,9 +50,14 @@ export default class Main extends Component {
 
   render() {
     return (
-      <div>
-        {this.load? this.state.loading : this.displayBlogs(this.state.blogs)}
-      </div>
+      <Router>
+        <div>
+          {this.load? this.state.loading : this.displayBlogs(this.state.blogs)}
+        </div>
+        <div>
+          <Route path="/blog" component={<SingleBlog {...this.state} />} />
+        </div>
+      </Router>
     )
   }
 }
