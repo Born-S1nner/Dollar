@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-/*
-import Inputblogs from './main/bloginput'
-import BlogMaps from './main/blog/blogresults'
-import SingleBlog from './main/blog/SingleBlogInfo'
-*/
+import {Route, Link} from 'react-router-dom'
+import SingleBlog from './blog/SingleBlogInfo'
 export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +10,13 @@ export default class Main extends Component {
       loading: true
     }
     this.setId = this.setId.bind(this)
+  }
+  setId(e) {
+    let idme = e.target.value
+    this.setState({identity: idme})
+    return (
+      <Route path="/blog" component={<SingleBlog {...this.state} />} />
+    )
   }
   getBlogs() {
     fetch("http://127.0.0.1:5000/blog/public")
@@ -24,30 +28,27 @@ export default class Main extends Component {
         })
       })
   }
-
-  setId(e) {
-    let idme = e.currentTarget.value
-    this.setState({
-      identity: idme
-    })
-    console.log(this.state.identity)
-  }
-
+  
   displayBlogs = (blogs) => {
-    //<Link to='/Blog'></Link>
+//<Link to='/blog'></Link>
     return(
       blogs.map(row => 
         <div key={row.id} className="blogRow">
-            <h5 className='blog_head'>{row.added_by}</h5>
-            <p className='blog_blog'>{row.blog}</p>
-          <button className='blog_button' value={row.id} onClick={this.setId}>
-            ...
+          <h5 className='blog_head'>{row.added_by}</h5>
+          <p className='blog_blog'>{row.blog}</p>
+          <button 
+            className='blog_button' 
+            value={row.id}
+            onClick={this.setId}
+          >
+            <Link to='/blog'>
+              ...
+            </Link>
           </button>
-        </div>  
+        </div>
       )
     )
   }
-
   componentDidMount() {
     this.getBlogs();
   }
@@ -55,7 +56,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        {this.state.loading? <h5>Loading</h5> : this.displayBlogs(this.state.blogs)}
+        {this.load? this.state.loading : this.displayBlogs(this.state.blogs)}
       </div>
     )
   }
