@@ -8,9 +8,10 @@ class SingleBlog extends Component {
       blogline: []
     }
   }
-
   getBlogLine() {
-    fetch("http://127.0.0.1:5000/blog/private/605112fca3793a90b95e7993")
+    let idOutlet = this.props.identity
+    console.log(idOutlet)
+    fetch("http://127.0.0.1:5000/blog/private/"+idOutlet)
       .then(res => res.json())
       .then(json =>{ 
         this.setState({
@@ -18,14 +19,12 @@ class SingleBlog extends Component {
         })
       })
       .catch(err=> console.log(err))
-    
   }
 
   displayBlogs = (blogline) => {
     return(
       blogline.map(row => 
         <div key={row.id} className="blogRow" >
-          <h5 className='blog_head'>{row.added_by}</h5>
           <p className='blog_blog'>{row.blog}</p>
           <button value={row.id} onClick={this.UpdateBlogRow} className="blog_button">Edit</button>
           <button className="blog_button">Remove</button>
