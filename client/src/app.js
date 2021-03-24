@@ -6,34 +6,18 @@ import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
 import Inputblogs from './main/blog/bloginput'
+import SingleBlog from './main/blog/SingleBlogInfo'
 import Main from './main/main'
 
 export default function App() {
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
-    const [Id, setId] = useState()
 
     fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
 
     const [logged] = useAuth()
-    return (
-        <Router>
-        <div className="App">
-            <h1 className="titleStyle">{title}</h1>
-            <ul className="NavBar">
-                <li className="NavItem"><Signup /></li>
-                <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}><Link to='/'>LogOut</Link></button>}</li>
-                <li className="NavItem"><IdentityCheck /></li>
-            </ul>
-            <div className="blogMain">
-                <p>{Id}</p>
-                <Route path="/home" component={BlogDrop} />
-            </div>
-        </div>
-        </Router>
-    )
 
     function BlogDrop() {
         return (
@@ -43,6 +27,31 @@ export default function App() {
             </div>
         )
     }
+
+    function BlogSingle() {
+        return (
+            <div>
+                <SingleBlog {...this.state} />
+            </div>
+        )
+    }
+
+    return (
+        <Router>
+            <div className="App">
+                <h1 className="titleStyle">{title}</h1>
+                <ul className="NavBar">
+                    <li className="NavItem"><Signup /></li>
+                    <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}><Link to='/'>LogOut</Link></button>}</li>
+                    <li className="NavItem"><IdentityCheck /></li>
+                </ul>
+                <div className="blogMain">
+                    <Route path="/home" component={BlogDrop} />
+                    <Route path="/blog" component={BlogSingle} />
+                </div>
+            </div>
+        </Router>
+    )
 
     function IdentityCheck() {
         const [message, setMessage] = useState('')
