@@ -1,12 +1,11 @@
 ///Either use http://127.0.0.1:5000/ or https://dollardream.herokuapp.com/ for Post
 import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './app.css'
 import Login from './account/login'
 import Signup from './account/signup'
 import Inputblogs from './main/blog/bloginput'
-import SingleBlog from './main/blog/SingleBlogInfo'
 import Main from './main/main'
 
 export default function App() {
@@ -19,38 +18,27 @@ export default function App() {
 
     const [logged] = useAuth()
 
-    function BlogDrop() {
-        return (
-            <div>
-                <Inputblogs token={token}/>
-                <Main />
-            </div>
-        )
-    }
-
-    function BlogSingle() {
-        return (
-            <div>
-                <SingleBlog {...this.state} />
-            </div>
-        )
-    }
 
     return (
-        <Router>
-            <div className="App">
-                <h1 className="titleStyle">{title}</h1>
-                <ul className="NavBar">
-                    <li className="NavItem"><Signup /></li>
-                    <li className="NavItem">{!logged? <Login setToken={setToken}/>: <button className='lgButton' onClick={()=> logout()}><Link to='/'>LogOut</Link></button>}</li>
-                    <li className="NavItem"><IdentityCheck /></li>
-                </ul>
-                <div className="blogMain">
-                    <Route path="/home" component={BlogDrop} />
-                    <Route path="/blog" component={BlogSingle} />
-                </div>
+        <div className="App">
+            <h1 className="titleStyle">{title}</h1>
+            <ul className="NavBar">
+                <li className="NavItem"><Signup /></li>
+                <li className="NavItem">
+                    {!logged? <Login setToken={setToken}/>: 
+                    <button className='lgButton' onClick={()=> logout()}>
+                        <Link to='/'>
+                            LogOut
+                        </Link>
+                    </button>}
+                </li>
+                <li className="NavItem"><IdentityCheck /></li>
+            </ul>
+            <div className="blogMain">
+                <Inputblogs token={token} />
+                <Main />
             </div>
-        </Router>
+        </div>
     )
 
     function IdentityCheck() {
