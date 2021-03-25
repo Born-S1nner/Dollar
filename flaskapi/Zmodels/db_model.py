@@ -9,6 +9,10 @@ def initialize_db (app):
 import mongoengine_goodjson as gj
 from flask_bcrypt import generate_password_hash, check_password_hash
 
+class Refressher(gj.Document):
+    username = db.StringField(required=True)
+    refresh = db.StringField(required=True)
+
 class BlogPoster(gj.Document):
     blog = db.StringField(required=True, max_length=1000)
     added_by = db.ReferenceField('CoinMember')
