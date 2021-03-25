@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { authFetch, useAuth, logout } from './auth/authic'
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 import './app.css'
+import Refressh from './auth/Refressh'
 import Login from './account/login'
 import Signup from './account/signup'
 import Inputblogs from './main/blog/bloginput'
@@ -12,12 +13,12 @@ export default function App() {
     const [message, setMessage] = useState('')
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
+    const [refresh, setRefresh] = useState()
+    const [logged] = useAuth()
 
     fetch('https://dollardream.herokuapp.com/')
         .then(res => res.json())
         .then(data => titleCard(data.get))
-
-    const [logged] = useAuth()
 
     function IdentityCheck() {
         useEffect(() => {
@@ -47,12 +48,15 @@ export default function App() {
             <ul className="NavBar">
                 <li className="NavItem"><Signup /></li>
                 <li className="NavItem">
-                    {!logged? <Login setToken={setToken}/>: 
+                    {!logged? <Login setRefresh={setRefresh} setToken={setToken}/>: 
                     <button className='lgButton' onClick={()=> logout()}>
                         <Link to='/'>
                             LogOut
                         </Link>
                     </button>}
+                </li>
+                <li className="NavItem">
+                    <Refressh />
                 </li>
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
