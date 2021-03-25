@@ -56,7 +56,7 @@ export default function App() {
                     </button>}
                 </li>
                 <li className="NavItem">
-                    <Refressh />
+                    <Refressh refresh={refresh} />
                 </li>
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
