@@ -13,7 +13,6 @@ export default function App() {
     const [message, setMessage] = useState('')
     const [title, titleCard] = useState('')
     const [token, setToken] = useState();
-    const [refresh, setRefresh] = useState()
     const [logged] = useAuth()
 
     fetch('https://dollardream.herokuapp.com/')
@@ -48,7 +47,7 @@ export default function App() {
             <ul className="NavBar">
                 <li className="NavItem"><Signup /></li>
                 <li className="NavItem">
-                    {!logged? <Login setRefresh={setRefresh} setToken={setToken}/>: 
+                    {!logged? <Login setToken={setToken}/>: 
                     <button className='lgButton' onClick={()=> logout()}>
                         <Link to='/'>
                             LogOut
@@ -56,7 +55,7 @@ export default function App() {
                     </button>}
                 </li>
                 <li className="NavItem">
-                    <Refressh refresh={refresh} />
+                    <Refressh />
                 </li>
                 <li className="NavItem"><IdentityCheck /></li>
             </ul>
