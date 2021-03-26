@@ -13,14 +13,9 @@ export default class Main extends Component {
     this.setId = this.setId.bind(this)
   }
   setId(e) {
-    let idme = e.target.value
+    let idme = e.currentTarget.value
     this.setState({identity: idme})
-    this.getBlogLine()
-  }
-  getBlogLine() {
-    let idOutlet = this.state.identity
-    console.log(idOutlet)
-    fetch("http://127.0.0.1:5000/blog/private/"+idOutlet)
+    fetch("http://127.0.0.1:5000/blog/private/"+idme)
       .then(res => res.json())
       .then(json =>{ 
         this.setState({
@@ -41,7 +36,6 @@ export default class Main extends Component {
   }
   
   displayBlogs = (blogs) => {
-//<Link to='/blog'>...</Link>
     return(
       blogs.map(row => 
         <div key={row.id} className="blogRow">
@@ -59,19 +53,11 @@ export default class Main extends Component {
     )
   }
 
-  SingleView() {
-    return(
-      <SingleBlog {...this.state}/>
-    )
-  }
-
   componentDidMount() {
     this.getBlogs();
-    this.getBlogLine();
   }
 
   render() {
-//<Route path="/blog" component={<SingleBlog {...this.state} />} />
     return (
       <Router>
         <Route path="/home">
@@ -80,7 +66,7 @@ export default class Main extends Component {
         </div>
         </Route>
         <Route path="/blog">
-          {this.SingleView()}
+          <SingleBlog {...this.state}/>
         </Route>
       </Router>
     )
