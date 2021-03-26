@@ -68,7 +68,7 @@ export default function App() {
             </ul>
             <div className="blogMain">
                 <Inputblogs token={token} />
-                <Main />
+                <Route path='/home'><Main /></Route>
             </div>
         </div>
         </Router>
