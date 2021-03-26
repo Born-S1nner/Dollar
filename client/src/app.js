@@ -50,7 +50,7 @@ export default function App() {
                 <li className="NavItem">
                     {!logged? <Login 
                     setToken={setToken}
-                    refresh={setRefresh}
+                    setRefresh={setRefresh}
                     />: 
                     <button className='lgButton' onClick={()=> logout()}>
                         <Link to='/'>
