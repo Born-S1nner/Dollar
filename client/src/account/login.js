@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import { login } from '../auth/authic'
 
-export default function Login({setToken}) {
+export default function Login({setToken, setRefresh}) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const handleUsernameChange = (e) => {
@@ -31,6 +31,7 @@ export default function Login({setToken}) {
         if (token.access_token) {
           login(token)
           setToken(token.access_token)
+          setRefresh(token.refresh_token)
         } else {
           console.log("Wrong USERNAME/PASSWORD")
         }
