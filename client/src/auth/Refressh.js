@@ -13,7 +13,7 @@ export default function Refressh({setToken, refresh}) {
       }
     })
     .then(token => {
-      if (token.access_token) {
+      if (token.status !== 401) {
         login(token)
         setToken(token.access_token)
       } else {
