@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import {useAuth} from '../auth/authic'
-import Mapblogs from './blogresults'
+import {useAuth} from '../../auth/authic'
 
-export default function MainPage({token}){
+export default function Inputblogs({token}){
 
   const [blogMessage, setBlog] = useState('')
 
@@ -12,6 +11,7 @@ export default function MainPage({token}){
 
   const onBlogSubmitClick = (e) => {
     e.preventDefault()
+    console.log("clicked")
     let blogDetail = {"blog": blogMessage}
     fetch("http://127.0.0.1:5000/blog/public", {
       method: 'POST',
@@ -22,7 +22,14 @@ export default function MainPage({token}){
       },
       body: JSON.stringify(blogDetail)
     })
-    .then(req => req.json())
+    .then(res => {
+      if (res.status === 422) {
+          alert("you need to hit Refresh button to Reset")
+          return null
+      }
+      return res.json()
+  })
+    /// Make it where the blogs gets reloaded every time it clicks submit in react or python
   }
 
   const [inputLogged] = useAuth()
@@ -43,9 +50,6 @@ export default function MainPage({token}){
           </div>
           <button onClick={onBlogSubmitClick} type="submit">Enter</button>
         </form>}
-      <ul>
-        <Mapblogs/>
-      </ul>
     </div>
   )
 }
