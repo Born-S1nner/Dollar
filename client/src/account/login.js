@@ -42,7 +42,8 @@ export default function Login({setToken, setRefresh}) {
     <div>
       <h3>Login</h3>
       <form className="NavItemDropContent" action='#'>
-        <div>
+        <div className="DropContent-exposed">
+          <div>
           <input 
             type="text"
             value={username}
@@ -51,7 +52,7 @@ export default function Login({setToken, setRefresh}) {
             onChange={handleUsernameChange}
           />
         </div>
-        <div>
+          <div>
           <input
             type="text"
             value={password}
@@ -60,7 +61,8 @@ export default function Login({setToken, setRefresh}) {
             onChange={handlePasswordChange}
           />
         </div>
-        <button onClick={onSubmitClick} type="submit"><Link to='/home'>Login</Link></button>
+          <button onClick={onSubmitClick} type="submit"><Link to='/home'>Login</Link></button>
+        </div>
       </form>
     </div>
   )
