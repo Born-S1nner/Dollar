@@ -20,19 +20,23 @@ class SingleBlog extends Component {
           <p className='blog_blog'>{row.blog}</p>
           <button 
             value={row.id.$oid}
-            onClick={this.UpdateBlogRow} className="blog_button">
+            onClick={this.UpdateBlogRow} 
+            className="blog_button"
+          >
             Edit
           </button>
+          <button
+            value={row.id.$oid}
+            onClick={this.UpdateBlogRow} 
+            className="blog_button"
+          >
+            Remove
+          </button>
           <button className="blog_button">
-            <Link to='/home'>
-              Remove
-            </Link>
+            <Link className="LinkStyle" to='/home'>Return</Link>
           </button>
         </div>
       )}
-      <button>
-        <Link to='/home'>Return</Link>
-      </button>
       </div>
     )
   }
