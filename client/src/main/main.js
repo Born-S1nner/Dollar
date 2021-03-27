@@ -46,7 +46,7 @@ export default class Main extends Component {
             value={row.id}
             onClick={this.setId}
           >
-            <Link to='/blog'>...</Link>
+            <Link className="LinkStyle" to='/blog'>...</Link>
           </button>
         </div>
       )
