@@ -53,7 +53,7 @@ export default function App() {
                     setRefresh={setRefresh}
                     />: 
                     <button className='lgButton' onClick={()=> logout()}>
-                        <Link to='/'>
+                        <Link className="LinkStyle" to='/'>
                             LogOut
                         </Link>
                     </button>}
